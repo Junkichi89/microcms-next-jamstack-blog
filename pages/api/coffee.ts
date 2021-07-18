@@ -1,16 +1,18 @@
 import { NextApiResponse, NextApiRequest } from 'next';
 import { isCoffee } from '../../utils/TypeGuardUtils';
 
-const contact = async (  req: NextApiRequest,
-  res: NextApiResponse):Promise<void> => {
-  const WRITE_API_KEY = process.env.WRITE_API_KEY;
+const coffee = async ( 
+  req: NextApiRequest,
+  res: NextApiResponse
+  ):Promise<void> => {
 
+  const WRITE_API_KEY = process.env.WRITE_API_KEY;
   // クエリとAPIキーのチェック
   if (!isCoffee(req.body)|| typeof WRITE_API_KEY === "undefined") {
     return res.status(404).end();
   }
 
-  const content = await fetch(`hhttps://pei-blog.microcms.io/api/v1/coffee/`, {
+  const content = await fetch(`https://pei-blog.microcms.io/api/v1/coffee/`, {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'X-WRITE-API-KEY': WRITE_API_KEY,
@@ -30,4 +32,4 @@ const contact = async (  req: NextApiRequest,
   res.end('Coffee data enabled');
 };
 
-export default isCoffee;
+export default coffee;
