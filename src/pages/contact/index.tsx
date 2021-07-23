@@ -5,12 +5,14 @@ import { useForm, Controller } from "react-hook-form";
 import { NextPage } from "next";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers";
-import Contact from "../../models/Contact";
+import Contact from "models/Contact";
 import { useRouter } from "next/router";
 
 const ContactIndex: NextPage = () => {
   const router = useRouter();
 
+  //??について、null合体演算子(https://developer.mozilla.org/ja/docs/orphaned/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+  //左辺の値がnullまたはundifinedの場合、右辺を返し、それ以外の場合に左辺を返す
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
   const validationSchema = Yup.object().shape({

@@ -1,18 +1,18 @@
 import { NextApiResponse, NextApiRequest } from "next";
-import { isContact } from "../../utils/TypeGuardUtils";
+import { isCoffee } from "../../utils/TypeGuardUtils";
 
-const contact = async (
+const coffee = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   const WRITE_API_KEY = process.env.WRITE_API_KEY;
 
   // クエリとAPIキーのチェック
-  if (!isContact(req.body) || typeof WRITE_API_KEY === "undefined") {
+  if (!isCoffee(req.body) || typeof WRITE_API_KEY === "undefined") {
     return res.status(404).end();
   }
 
-  const content = await fetch(`https://pei-blog.microcms.io/api/v1/contacts`, {
+  const coffee = await fetch(`https://pei-blog.microcms.io/api/v1/coffee`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -24,7 +24,7 @@ const contact = async (
     .catch(() => null);
 
   // CMS側で正しく作成されたかチェック
-  if (content !== "Created") {
+  if (coffee !== "Created") {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
@@ -33,4 +33,4 @@ const contact = async (
   res.end("Contact enabled");
 };
 
-export default contact;
+export default coffee;
